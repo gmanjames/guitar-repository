@@ -82,6 +82,8 @@ beginBtn.addEventListener("click", (e) => {
   e.target.innerText = "Next"
 })
 
-
-
-
+document.addEventListener("keypress", (e) => {
+  if (e.code === "Enter") {
+    beginBtn.click();
+  }
+});
