@@ -49,16 +49,26 @@ const C_OCTAVES_AND_STRINGS = {
 }
 
 function selectRandomCNoteAndString() {
-  const octaveIndex = Math.floor(Math.random() * C_OCTAVES.length),
+  const octaveIndex = Math.floor(Math.random() * (C_OCTAVES.length - 1)),
         octave      = C_OCTAVES[octaveIndex],
         strings     = C_OCTAVES_AND_STRINGS[octave],
-        stringIndex = Math.floor(Math.random() * C_OCTAVES.length),
+        stringIndex = Math.floor(Math.random() * (strings.length - 1)),
         string      = strings[stringIndex];
   return [octave, string];
 }
 
+let lastOctave, lastNote;
 function flashCard() {
   let [octave, string] = selectRandomCNoteAndString();
+  while (
+     octave === lastOctave
+  && string === lastString) {
+    [octave, string] = selectRandomCNoteAndString();
+  }
+
+  lastOctave = octave;
+  lastString = string;
+
   const app = document.getElementById("flashCardApp"),
         td1 = app.querySelector("td:first-of-type"),
         td2 = app.querySelector("td:last-of-type");
